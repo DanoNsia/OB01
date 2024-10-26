@@ -21,53 +21,41 @@
 # 3. Протестировать методы:
 # Выбери один из созданных магазинов и протестируй все его методы: добавь товар, обнови цену, убери товар и запрашивай цену.
 
-
 class Store:
-    def __init__(self, name, address):
+    def __init__(self, name, address, items):
         self.name = name
         self.address = address
-        self.items = {}
+        self.items = {
+    'apples': 0.5,
+    'bananas': 0.75,
+    'oranges': 0.65,
+    'grapes': 2.0,
+    'pears': 1.2
+}
+        self.adds = []
 
-    def add_item(self, item_name, price):
-        if price < 0:
-            raise ValueError("Цена не может быть отрицательной.")
-        self.items[item_name] = price
-        print(f"Товар '{item_name}' добавлен с ценой {price}.")
+    def adds(self, items):
+        add = Store(items)
+        self.adds.append(add)
 
-    def remove_item(self, item_name):
-        if item_name in self.items:
-            del self.items[item_name]
-            print(f"Товар '{item_name}' удален.")
-        else:
-            print(f"Товар '{item_name}' отсутствует в ассортименте.")
+    def deletes(self, items):
+        delete = Store(items)
+        self.remove(delete)
 
-    def get_price(self, item_name):
-        return self.items.get(item_name, None)
+    def clears(self, items):
+        clear = Store(items)
+        self.clear(clear)
 
-    def update_price(self, item_name, new_price):
+    def prices(self, items):
+        price = Store(items)
+        self.get(price)
+
+    def update_price(items, item_name, new_price):
         if new_price < 0:
             raise ValueError("Цена не может быть отрицательной.")
-        if item_name in self.items:
-            self.items[item_name] = new_price
-            print(f"Цена товара '{item_name}' обновлена до {new_price}.")
+
+        elif item_name in items:
+            items[item_name] = new_price
+            print(f"Цена товара '{item_name}' обновлена до {items[item_name]}.")
         else:
             print(f"Товар '{item_name}' не найден в списке.")
-
-# Создание объектов класса Store
-store1 = Store("Магазин 1", "ул. Ленина, д. 1")
-store2 = Store("Магазин 2", "ул. Советская, д. 2")
-store3 = Store("Магазин 3", "ул. Пушкина, д. 3")
-
-# Добавление товаров
-store1.add_item("apples", 0.5)
-store1.add_item("bananas", 0.75)
-
-# Обновление цены
-store1.update_price("apples", 0.6)
-
-# Получение цены
-price = store1.get_price("apples")
-print(f"Цена apples: {price}")
-
-# Удаление товара
-store1.remove_item("bananas")
